@@ -32,3 +32,5 @@ Learn how to setup a project using a cloud database and EF Core
 - run the db update
 `dotnet ef database update`
 
+- to secure the connection strings you can run
+`dotnet user-secrets init` and `dotnet user-secrets set "ConnectionStrings:<ConnectionName>" "<ConnectionStringValue>"`

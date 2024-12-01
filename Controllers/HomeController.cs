@@ -15,6 +15,17 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        
+        
+        return View();
+    }
+
+        public IActionResult Books()
+    {
+        string[] books = [];
+        books=["Mille e una notte","I Miserabili","Alice nel paese delle meraviglie"];
+        ViewBag.Books = books;
+        
         return View();
     }
 

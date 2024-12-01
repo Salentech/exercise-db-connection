@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Books";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Books</h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Titoli dei libri</th>
+            </tr>
+        </thead>
+        <tbody>
+      @foreach(var item in ViewBag.Books) 
+       {
+       <tr>
+        <td>
+            @item
+        </td>
+      </tr>
+    }
+        </tbody>
+    </table>
+</div>

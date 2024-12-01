@@ -35,3 +35,8 @@ Learn how to setup a project using a cloud database and EF Core
 
 - to secure the connection strings you can run
 `dotnet user-secrets init` and `dotnet user-secrets set "ConnectionStrings:<ConnectionName>" "<ConnectionStringValue>"`
+
+
+## local testing commands
+- clone/fork the repo
+- db access is locked via ip, contact the admin

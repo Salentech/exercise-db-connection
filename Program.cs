@@ -3,8 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Register AppDbContext as a singleton service
-builder.Services.AddSingleton<AppDbContext>();
+
 
 builder.Configuration.AddUserSecrets<Program>();
 

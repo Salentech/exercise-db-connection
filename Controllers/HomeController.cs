@@ -1,21 +1,25 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using exercise_db_connection.Models;
+using exercise_db_connection.Repositories;
 
 namespace exercise_db_connection.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private BookRepository _bookRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, BookRepository bookRepository)
     {
+        _bookRepository = bookRepository;
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        
+        List<Book> books = await _bookRepository.GetAll();
+        ViewBag.Books = books;
         
         return View();
     }

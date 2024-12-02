@@ -1,3 +1,5 @@
+namespace exercise_db_connection.Models;
+
 public class Review
 {
     public int Id { get; set; }

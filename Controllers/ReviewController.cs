@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using exercise_db_connection.Models;
 using exercise_db_connection.Models.Dtos;
 using exercise_db_connection.Repositories;
 using Microsoft.AspNetCore.Mvc;

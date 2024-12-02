@@ -1,3 +1,4 @@
+using exercise_db_connection.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext

@@ -5,16 +5,16 @@ namespace exercise_db_connection.Repositories
     public class BookRepository
     {
 
-        private readonly AppDbContext appContext;
+        private readonly AppDbContext _appContext;
 
         public BookRepository(AppDbContext context)
         {
-            appContext = context;
+            _appContext = context;
         }
         
         internal async Task<List<Book>> GetAll(int Skip, int Take)
         {
-            var books = await appContext.Books
+            var books = await _appContext.Books
                 .Skip(Skip)
                 .Take(Take)
                 .ToListAsync();

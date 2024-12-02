@@ -10,7 +10,7 @@ public class HomeController(ILogger<HomeController> logger, BookRepository bookR
 {
     public async Task<IActionResult> Index(int skip = 0, int take = 5)
     {
-        List<Book> books = await bookRepository.GetAll(skip, take + 1);
+        var books = await bookRepository.GetAll(skip, take + 1);
 
         ViewBag.Books = books.Take(take).ToList();
         ViewBag.Skip = skip;

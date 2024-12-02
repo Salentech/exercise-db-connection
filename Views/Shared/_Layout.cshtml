@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - exercise_db_connection</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/exercise_db_connection.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/exercise_db_connection.styles.css" asp-append-version="true" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -80,46 +81,58 @@
         }
     </style>
 </head>
+
 <body>
-<div class="logo-container">
-    <img src="~/Images/logo.svg" alt="exercise_db_connection">
-</div>
-
-<div id="sidebar" onmouseleave="closeNav()">
-    <a href="@Url.Action("Index", "Home")">Home</a>
-    <a href="@Url.Action("Privacy", "Home")">Privacy</a>
-    <a href="@Url.Action("Books", "Home")">Books</a>
-</div>
-
-<span class="hamburger-icon" onmouseenter="openNav()">&#9776;</span>
-
-<div id="main-content" class="main-content">
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="logo-container">
+        <img src="~/Images/logo.svg" alt="exercise_db_connection">
     </div>
-</div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2024 - exercise_db_connection - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <div id="sidebar" onmouseleave="closeNav()">
+        <a href="@Url.Action("Index", "Home")">Home</a>
+        <a href="@Url.Action("Privacy", "Home")">Privacy</a>
+        <a href="@Url.Action("Books", "Home")">Books</a>
     </div>
-</footer>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script>
-    function openNav() {
-        document.getElementById("sidebar").classList.add("active");
+    <span class="hamburger-icon" onmouseenter="openNav()">&#9776;</span>
+
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        <a href="/MicrosoftIdentity/Account/SignOut">Sign out</a>
+    }
+    else
+    {
+        <a href="/MicrosoftIdentity/Account/SignIn">Sign in</a>
     }
 
-    function closeNav() {
-        document.getElementById("sidebar").classList.remove("active");
-    }
-</script>
 
-@await RenderSectionAsync("Scripts", false)
+    <div id="main-content" class="main-content">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - exercise_db_connection - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").classList.add("active");
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").classList.remove("active");
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", false)
 </body>
+
 </html>

@@ -1,3 +1,4 @@
+using System.Reflection;
 using exercise_db_connection.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,13 +12,16 @@ builder.Configuration.AddEnvironmentVariables()
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(maxRetryCount: 3));
+    options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(3));
 });
 
 builder.Services.AddTransient<BookRepository>();
+builder.Services.AddTransient<ReviewRepository>();
 
 var app = builder.Build();
 
@@ -37,7 +41,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

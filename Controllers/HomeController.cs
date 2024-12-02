@@ -16,11 +16,15 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int skip = 0, int take = 5)
     {
-        List<Book> books = await _bookRepository.GetAll();
-        ViewBag.Books = books;
+        List<Book> books = await _bookRepository.GetAll(skip, take + 1);
         
+        ViewBag.Books = books.Take(take).ToList();
+        ViewBag.skip = skip;
+        ViewBag.take = take;
+        
+        ViewBag.hasNextPage = books.Count > take;
         return View();
     }
 

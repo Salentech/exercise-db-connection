@@ -8,7 +8,7 @@ namespace exercise_db_connection.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private BookRepository _bookRepository;
+    private readonly BookRepository _bookRepository;
 
     public HomeController(ILogger<HomeController> logger, BookRepository bookRepository)
     {

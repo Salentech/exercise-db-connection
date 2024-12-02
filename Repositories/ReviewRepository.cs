@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using exercise_db_connection.Data;
+using exercise_db_connection.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace exercise_db_connection.Repositories;
 

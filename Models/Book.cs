@@ -1,3 +1,5 @@
+namespace exercise_db_connection.Models;
+
 public class Book
 {
     public int Id { get; set; }

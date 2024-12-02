@@ -41,3 +41,22 @@ Learn how to setup a project using a cloud database and EF Core
 
 - clone/fork the repo
 - db access is locked via ip, contact the admin
+
+___
+
+## What we've learned
+
+Ema
+- github branch security
+- azure configurations: Set a SQLSever, set an app service, handle environment variables and secrets securely
+- tutoring in pair programming
+
+Tiz
+- programming from java to dotnet, differences and similarities
+- how Entity Framework Core works: migrations, LINQ and SQL
+- Working with HTML and CSS
+
+Mat
+- Working with HTML and CSS
+- how OOP works basics: classes, types, methods
+- how MVC works basics: passing objects from controllers to views

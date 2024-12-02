@@ -7,10 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddUserSecrets<Program>();
 
+#if RELEASE
+builder.Configuration.AddEnvironmentVariables();
+#endif
+#if DEBUG
 builder.Configuration.AddEnvironmentVariables()
     .AddJsonFile("secrets.json");
-
+#endif
 // Add services to the container.
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());

@@ -1,6 +1,12 @@
+using exercise_db_connection.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddUserSecrets<Program>();
+
+builder.Configuration.AddEnvironmentVariables()
+    .AddJsonFile("secrets.json");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -8,10 +14,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(maxRetryCount: 3));
 });
 
-builder.Configuration.AddUserSecrets<Program>();
+builder.Services.AddTransient<BookRepository>();
 
 var app = builder.Build();
 

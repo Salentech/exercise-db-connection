@@ -13,6 +13,7 @@ mono_crash.*
 
 # User-specific files (VSCode)
 .vscode/
+/secrets.json
 
 # Auto-generated files
 Generated\
@@ -47,16 +48,5 @@ bld/
 /dataSources.local.xml
 
 /.idea/
-.vs/exercise-db-connection/FileContentIndex/6d589514-3a74-4af5-bcea-7dd84daa5436.vsidx
-.vs/exercise-db-connection/v17/.futdcache.v2
-.vs/exercise-db-connection/v17/.wsuo
-.vs/exercise-db-connection/v17/DocumentLayout.backup.json
-.vs/exercise-db-connection/v17/DocumentLayout.json
-.vs/ProjectEvaluation/exercise-db-connection.metadata.v9.bin
-.vs/ProjectEvaluation/exercise-db-connection.projects.v9.bin
-.vs/ProjectEvaluation/exercise-db-connection.strings.v9.bin
-Repositories/BookRepository.cs
-.vs/VSWorkspaceState.json
-.vs/exercise-db-connection/config/applicationhost.config
-.vs/exercise-db-connection/DesignTimeBuild/.dtbcache.v2
-.vs/exercise-db-connection/FileContentIndex/3905d4aa-cf61-4f45-8cac-aea045414fd1.vsidx
+/.vs/
+

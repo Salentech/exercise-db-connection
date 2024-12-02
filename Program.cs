@@ -1,4 +1,5 @@
 using System.Reflection;
+using exercise_db_connection.Data;
 using exercise_db_connection.Repositories;
 using Microsoft.EntityFrameworkCore;
 

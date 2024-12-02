@@ -1,39 +1,30 @@
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using exercise_db_connection.Models;
 using exercise_db_connection.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace exercise_db_connection.Controllers;
 
-public class HomeController : Controller
+public class HomeController(ILogger<HomeController> logger, BookRepository bookRepository)
+    : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-    private readonly BookRepository _bookRepository;
-
-    public HomeController(ILogger<HomeController> logger, BookRepository bookRepository)
+    public async Task<IActionResult> Index(int skip = 0, int take = 5)
     {
-        _bookRepository = bookRepository;
-        _logger = logger;
-    }
+        List<Book> books = await bookRepository.GetAll(skip, take + 1);
 
-    public async Task<IActionResult> Index(int Skip = 0, int Take = 5)
-    {
-        List<Book> books = await _bookRepository.GetAll(Skip, Take + 1);
-        
-        ViewBag.Books = books.Take(Take).ToList();
-        ViewBag.Skip = Skip;
-        ViewBag.Take = Take;
-        
-        ViewBag.hasNextPage = books.Count > Take;
+        ViewBag.Books = books.Take(take).ToList();
+        ViewBag.Skip = skip;
+        ViewBag.Take = take;
+
+        ViewBag.hasNextPage = books.Count > take;
         return View();
     }
 
-        public IActionResult Books()
+    public IActionResult Books()
     {
-        string[] books = [];
-        books=["Mille e una notte","I Miserabili","Alice nel paese delle meraviglie"];
+        string[] books = ["Mille e una notte", "I Miserabili", "Alice nel paese delle meraviglie"];
         ViewBag.Books = books;
-        
+
         return View();
     }
 

@@ -1,16 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace exercise_db_connection.Repositories
+namespace exercise_db_connection.Repositories;
+
+public class BookRepository(AppDbContext context)
 {
-    public class BookRepository(AppDbContext context)
+    internal Task<List<Book>> GetAll(int skip, int take)
     {
-        internal async Task<List<Book>> GetAll(int skip, int take)
-        {
-            var books = await context.Books
-                .Skip(skip)
-                .Take(take)
-                .ToListAsync();
-            return books;
-        }
+        return context.Books
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
+    }
+
+    internal Task<Book?> GetById(int bookId)
+    {
+        return context.Books
+            .FirstOrDefaultAsync(book => book.Id == bookId);
     }
 }

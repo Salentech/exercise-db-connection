@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    int Skip = ViewBag.Skip;
-    int Take = ViewBag.Take;
+    int skip = ViewBag.Skip;
+    int take = ViewBag.Take;
 }
 
 <div class="text-center">
@@ -22,21 +22,24 @@
         @foreach (var item in ViewBag.Books)
         {
             <tr>
-                <td>@item.Title</td>
+                <td>
+                    <a href="@Url.Action("Reviews", "Review", new { bookId = item.Id })">@item.Title</a>
+                </td>
                 <td>@item.Author</td>
             </tr>
         }
+
         </tbody>
     </table>
 
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-            <li class="page-item @(Skip == 0 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { Skip = Math.Max(0, Skip - Take), Take })">Previous</a>
+            <li class="page-item @(skip == 0 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { Skip = Math.Max(0, skip - take), Take = take })">Previous</a>
             </li>
 
             <li class="page-item @(ViewBag.hasNextPage ? "" : "disabled")">
-                <a class="page-link" href="@Url.Action("Index", new { Skip = Skip + Take, Take })">Next</a>
+                <a class="page-link" href="@Url.Action("Index", new { Skip = skip + take, Take = take })">Next</a>
             </li>
         </ul>
     </nav>

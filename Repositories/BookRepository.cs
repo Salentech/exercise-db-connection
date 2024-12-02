@@ -11,10 +11,13 @@ namespace exercise_db_connection.Repositories
         {
             appContext = context;
         }
-     
-        internal async Task<List<Book>> GetAll()
+        
+        internal async Task<List<Book>> GetAll(int Skip, int Take)
         {
-            var books = await appContext.Books.ToListAsync();
+            var books = await appContext.Books
+                .Skip(Skip)
+                .Take(Take)
+                .ToListAsync();
             return books;
         }
     }

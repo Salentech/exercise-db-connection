@@ -2,21 +2,13 @@
 
 namespace exercise_db_connection.Repositories
 {
-    public class BookRepository
+    public class BookRepository(AppDbContext context)
     {
-
-        private readonly AppDbContext _appContext;
-
-        public BookRepository(AppDbContext context)
+        internal async Task<List<Book>> GetAll(int skip, int take)
         {
-            _appContext = context;
-        }
-        
-        internal async Task<List<Book>> GetAll(int Skip, int Take)
-        {
-            var books = await _appContext.Books
-                .Skip(Skip)
-                .Take(Take)
+            var books = await context.Books
+                .Skip(skip)
+                .Take(take)
                 .ToListAsync();
             return books;
         }

@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - exercise_db_connection</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/exercise_db_connection.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/exercise_db_connection.styles.css" asp-append-version="true"/>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -83,72 +83,72 @@
 </head>
 
 <body>
-    <div class="logo-container">
-        <img src="~/Images/logo.svg" alt="exercise_db_connection">
-    </div>
+<div class="logo-container">
+    <img src="~/Images/logo.svg" alt="exercise_db_connection">
+</div>
 
-    <div id="sidebar" onmouseleave="closeNav()">
-        <a href="@Url.Action("Index", "Home")">Home</a>
-        <a href="@Url.Action("Privacy", "Home")">Privacy</a>
-        <a href="@Url.Action("Books", "Home")">Books</a>
-    </div>
+<div id="sidebar" onmouseleave="closeNav()">
+    <a href="@Url.Action("Index", "Home")">Home</a>
+    <a href="@Url.Action("Privacy", "Home")">Privacy</a>
+    <a href="@Url.Action("Books", "Home")">Books</a>
+</div>
 
-    <span class="hamburger-icon" onmouseenter="openNav()">&#9776;</span>
+<span class="hamburger-icon" onmouseenter="openNav()">&#9776;</span>
 
-    <div class="auth-buttons">
-        @if (User?.Identity?.IsAuthenticated ?? false)
-        {
-            <a href="/MicrosoftIdentity/Account/SignOut" class="btn btn-outline-primary">Sign out</a>
-        }
-        else
-        {
-            <a href="/MicrosoftIdentity/Account/SignIn" class="btn btn-primary">Sign in</a>
-        }
-        <style>
-            .auth-buttons {
-                position: fixed;
-                top: 15px;
-                right: 15px;
-                z-index: 1000;
-            }
-
-            .auth-buttons a {
-                margin-left: 10px;
-                text-decoration: none;
-            }
-        </style>
-    </div>
-
-
-
-    <div id="main-content" class="main-content">
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - exercise_db_connection - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        function openNav() {
-            document.getElementById("sidebar").classList.add("active");
+<div class="auth-buttons">
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        <a href="/MicrosoftIdentity/Account/SignOut" class="btn btn-outline-primary">Sign out</a>
+    }
+    else
+    {
+        <a href="/MicrosoftIdentity/Account/SignIn" class="btn btn-primary">Sign in</a>
+    }
+    <style>
+        .auth-buttons {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
         }
 
-        function closeNav() {
-            document.getElementById("sidebar").classList.remove("active");
+        .auth-buttons a {
+            margin-left: 10px;
+            text-decoration: none;
         }
-    </script>
+    </style>
+</div>
 
-    @await RenderSectionAsync("Scripts", false)
+
+
+<div id="main-content" class="main-content">
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2024 - exercise_db_connection - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    function openNav() {
+        document.getElementById("sidebar").classList.add("active");
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").classList.remove("active");
+    }
+</script>
+
+@await RenderSectionAsync("Scripts", false)
 </body>
 
 </html>

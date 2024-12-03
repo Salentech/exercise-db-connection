@@ -95,14 +95,30 @@
 
     <span class="hamburger-icon" onmouseenter="openNav()">&#9776;</span>
 
-    @if (User?.Identity?.IsAuthenticated ?? false)
-    {
-        <a href="/MicrosoftIdentity/Account/SignOut">Sign out</a>
-    }
-    else
-    {
-        <a href="/MicrosoftIdentity/Account/SignIn">Sign in</a>
-    }
+    <div class="auth-buttons">
+        @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            <a href="/MicrosoftIdentity/Account/SignOut" class="btn btn-outline-primary">Sign out</a>
+        }
+        else
+        {
+            <a href="/MicrosoftIdentity/Account/SignIn" class="btn btn-primary">Sign in</a>
+        }
+        <style>
+            .auth-buttons {
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                z-index: 1000;
+            }
+
+            .auth-buttons a {
+                margin-left: 10px;
+                text-decoration: none;
+            }
+        </style>
+    </div>
+
 
 
     <div id="main-content" class="main-content">

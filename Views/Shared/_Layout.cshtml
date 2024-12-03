@@ -8,84 +8,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/exercise_db_connection.styles.css" asp-append-version="true"/>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        #sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: #343a40;
-            padding-top: 60px;
-            transition: 0.3s;
-            z-index: 999;
-        }
-
-        #sidebar a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #fff;
-            display: block;
-            transition: 0.3s;
-        }
-
-        #sidebar a:hover {
-            color: #f1f1f1;
-        }
-
-        #sidebar.active {
-            left: 0;
-        }
-
-        .hamburger-icon {
-            font-size: 30px;
-            color: #000;
-            cursor: pointer;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1000;
-        }
-
-        .main-content {
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .navbar {
-            display: none;
-        }
-
-        .logo-container {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 1000;
-        }
-
-        .logo-container img {
-            height: auto;
-        }
-    </style>
 </head>
 
 <body>
-<div class="logo-container">
-    <img src="~/Images/logo.svg" alt="exercise_db_connection">
-</div>
 
 <div id="sidebar" onmouseleave="closeNav()">
     <a href="@Url.Action("Index", "Home")">Home</a>
@@ -95,30 +20,22 @@
 
 <span class="hamburger-icon" onmouseenter="openNav()">&#9776;</span>
 
-<div class="auth-buttons">
-    @if (User?.Identity?.IsAuthenticated ?? false)
-    {
-        <a href="/MicrosoftIdentity/Account/SignOut" class="btn btn-outline-primary">Sign out</a>
-    }
-    else
-    {
-        <a href="/MicrosoftIdentity/Account/SignIn" class="btn btn-primary">Sign in</a>
-    }
-    <style>
-        .auth-buttons {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 1000;
-        }
+<div class="header-container">
+    <div class="logo-container">
+        <img src="@Url.Content("~/images/logo.svg")" alt="exercise_db_connection">
+    </div>
 
-        .auth-buttons a {
-            margin-left: 10px;
-            text-decoration: none;
+    <div class="auth-buttons">
+        @if (User?.Identity?.IsAuthenticated ?? false)
+        {
+            <a href="/MicrosoftIdentity/Account/SignOut" class="btn btn-outline-primary">Sign out</a>
         }
-    </style>
+        else
+        {
+            <a href="/MicrosoftIdentity/Account/SignIn" class="btn btn-primary">Sign in</a>
+        }
+    </div>
 </div>
-
 
 
 <div id="main-content" class="main-content">

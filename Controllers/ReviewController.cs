@@ -13,18 +13,22 @@ public class ReviewController(
     IMapper mapper)
     : Controller
 {
-    public async Task<IActionResult> Reviews(int bookid)
+    public async Task<IActionResult> Reviews(int bookid, int skip = 0, int take = 5)
     {
         var book = await bookRepository.GetById(bookid);
         if (book == null) return NotFound();
 
-        var reviews = await reviewRepository.GetReviewsByBookId(bookid);
+        var reviews = await reviewRepository.GetReviewsByBookId(bookid, skip, take + 1);
 
         ViewBag.Book = book;
-        ViewBag.Reviews = reviews;
-
+        ViewBag.Reviews = reviews.Take(take).ToList();
+        ViewBag.Skip = skip;
+        ViewBag.Take = take;
+        
+        ViewBag.hasNextPage = reviews.Count > take;
         return View();
     }
+
 
     [HttpPost]
     public async Task<IActionResult> AddReview(ReviewDto reviewDto)

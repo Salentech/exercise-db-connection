@@ -9,57 +9,75 @@ using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-// Add Configurations
+#region Configuration Setup
+// Add configuration sources:
+// - User secrets: for secure development storage of sensitive data
+// - Environment variables: for runtime configuration in different environments
+// - Additional JSON configuration: optional file for secrets or overrides
 builder.Configuration.AddUserSecrets<Program>()
     .AddEnvironmentVariables()
     .AddJsonFile("secrets.json", optional: true, reloadOnChange: true);
 
+// Debugging: Print the AzureAd configuration section to the console
+var azureAdConfig = builder.Configuration.GetSection("AzureAd");
+Console.WriteLine("AzureAd Configuration:");
+Console.WriteLine(JsonSerializer.Serialize(azureAdConfig));
+#endregion
 
-// Add services to the container.
+#region Services Registration
+
+// Register MVC controllers with support for Microsoft Identity UI
 builder.Services.AddControllersWithViews()
     .AddMicrosoftIdentityUI();
 
+// Register AutoMapper to simplify object mapping
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 
+// Register Entity Framework DbContext with retry logic on transient failures
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(3));
 });
 
-// Add Authentication
-var foo = builder.Configuration.GetSection("AzureAd");
-Console.WriteLine("in Program.cs");
-Console.WriteLine(JsonSerializer.Serialize(foo));
-
+// Configure authentication using Microsoft Identity and Azure AD
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
-
-// Add services
+// Register application repositories for dependency injection
 builder.Services.AddTransient<BookRepository>();
 builder.Services.AddTransient<ReviewRepository>();
 
+#endregion
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+#region Middleware Configuration
+
+// Configure middleware for error handling and HSTS in production environments
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseHsts(); // Enforces strict transport security
 }
 
+// Enforce HTTPS redirection and serve static files
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+// Configure request routing
 app.UseRouting();
+
+// Enable authentication and authorization middleware
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Map default route for controllers
 app.MapControllerRoute(
-    "default",
-    "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
+#endregion
+
+// Start the application
 app.Run();

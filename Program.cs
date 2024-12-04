@@ -3,6 +3,7 @@ using System.Text.Json;
 using exercise_db_connection.Data;
 using exercise_db_connection.Repositories;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -37,7 +38,7 @@ builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(3));
+    options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null));
 });
 
 // Configure authentication using Microsoft Identity and Azure AD
@@ -69,8 +70,21 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // Enable authentication and authorization middleware
-app.UseAuthentication();
-app.UseAuthorization();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = "placeholder";
+        options.ClientSecret = "placeholder";
+    })
+    .AddMicrosoftAccount(options =>
+    {
+        options.ClientId = "placeholder";
+        options.ClientSecret = "placeholder";
+    });app.UseAuthorization();
 
 // Map default route for controllers
 app.MapControllerRoute(

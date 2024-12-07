@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace exercise_db_connection.Controllers;
 
 public class ReviewController(
-    ILogger<HomeController> logger,
+    ILogger<ReviewController> logger,
     ReviewRepository reviewRepository,
     BookRepository bookRepository,
     IMapper mapper)

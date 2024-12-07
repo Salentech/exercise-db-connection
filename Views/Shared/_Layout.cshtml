@@ -28,11 +28,11 @@
     <div class="auth-buttons">
         @if (User?.Identity?.IsAuthenticated ?? false)
         {
-            <a href="/MicrosoftIdentity/Account/SignOut" class="btn btn-outline-primary">Sign out</a>
+            <a href="/Account/SignOut" class="btn btn-outline-primary">Sign out</a>
         }
         else
         {
-            <a href="/MicrosoftIdentity/Account/SignIn" class="btn btn-primary">Sign in</a>
+            <a href="/Account/Register" class="btn btn-primary">Sign in</a>
         }
     </div>
 </div>

@@ -1,0 +1,12 @@
+<h2>Login</h2>
+<form asp-controller="Account" asp-action="Login" method="post">
+    <label>Email:</label>
+    <input type="email" name="Email" required>
+    <label>Password:</label>
+    <input type="password" name="Password" required>
+    <button type="submit">Login</button>
+</form>
+
+<h3>Or login with:</h3>
+<a asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="Google">Google</a>
+<a asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="Microsoft">Microsoft</a>

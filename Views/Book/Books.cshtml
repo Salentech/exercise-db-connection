@@ -1,0 +1,67 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var book = ViewBag.Book;
+  
+
+}
+
+
+
+<p>
+  <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+     Author:
+  </button>
+</p>
+<div style="min-height: 120px;">
+  <div class="collapse collapse-horizontal" id="collapseWidthExample">
+    <div class="card card-body" style="width: 300px;">
+       @book.Author
+    </div>
+  </div>
+</div>
+<p>
+  <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    Publishing year:
+  </button>
+</p>
+<div style="min-height: 120px;">
+  <div class="collapse collapse-horizontal" id="collapseWidthExample">
+    <div class="card card-body" style="width: 300px;">
+      @book.Pubyear
+    </div>
+  </div>
+</div>
+<p>
+  <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    Book's plot:
+  </button>
+</p>
+<div style="min-height: 120px;">
+  <div class="collapse collapse-horizontal" id="collapseWidthExample">
+    <div class="card card-body" style="width: 300px;">
+      @book.Plot
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="d-flex justify-content-between mt-4">
+    <div class="d-flex align-items-center">
+        <a href="@Url.Action("Reviews", "Review", new { bookId = book.Id })"
+           class="btn btn-outline-primary btn-lg rounded-pill">
+           See all reviews
+        </a>
+    </div>
+
+</div>
+
+
+
+ <div class="d-flex justify-content-between align-items-center mb-4">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Back</a>
+
+    <h1 class="text-center flex-grow-1">@book.Title</h1>
+
+</div>

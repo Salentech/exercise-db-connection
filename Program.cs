@@ -42,14 +42,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 // Add Authentication
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftAccount(options =>
-        {
-            options.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"] ?? "error";
-            options.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"] ?? "error";
-        })
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
-
 builder.Services.AddAuthentication()
     .AddGoogle(options =>
     {
@@ -60,7 +52,8 @@ builder.Services.AddAuthentication()
     {
         options.ClientId = builder.Configuration.GetSection("AzureAd")["ClientId"]!;
         options.ClientSecret = builder.Configuration.GetSection("AzureAd")["ClientSecret"]!;
-    });
+    })
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd")); ;
 
 // Register application repositories for dependency injection
 builder.Services.AddTransient<BookRepository>();

@@ -29,11 +29,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 // Add Authentication
-var foo = builder.Configuration.GetSection("AzureAd");
-Console.WriteLine("in Program.cs");
-Console.WriteLine(JsonSerializer.Serialize(foo));
-
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftAccount(options =>
+        {
+            options.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"] ?? "error";
+            options.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"] ?? "error";
+        })
     .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
 

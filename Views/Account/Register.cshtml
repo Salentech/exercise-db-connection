@@ -8,9 +8,9 @@
 
 @if (TempData["Message"] != null)
 {
-        <div class="alert alert-success">
+    <div class="alert alert-success">
         @TempData["Message"]
-        </div>
+    </div>
 }
 
 <form asp-action="Register" asp-controller="Account" method="post">
@@ -42,3 +42,30 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+@{
+    ViewData["Title"] = "Register";
+}
+<h2>Register</h2>
+
+<form asp-action="Register" method="post">
+    <div>
+        <label for="Email">Email:</label>
+        <input type="email" id="Email" name="Email" required />
+    </div>
+    <div>
+        <label for="Password">Password:</label>
+        <input type="password" id="Password" name="Password" required />
+    </div>
+    <div>
+        <label for="ConfirmPassword">Confirm Password:</label>
+        <input type="password" id="ConfirmPassword" name="ConfirmPassword" required />
+    </div>
+    <button type="submit">Register</button>
+</form>
+
+<h3>Or register with:</h3>
+<a asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="Google">Google</a>
+<a asp-controller="Account" asp-action="ExternalLogin" asp-route-provider="Microsoft">Microsoft</a>
+
+<h3>Already have an account?</h3>
+<a asp-controller="Account" asp-action="Login">Login</a>

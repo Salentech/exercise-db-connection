@@ -40,7 +40,7 @@ public class ReviewRepositoryTests
     [Fact]
     public async Task GetReviewsByBookId_ReturnsReviewsForGivenBookId()
     {
-        var reviews = await _repository.GetReviewsByBookId(1);
+        var reviews = await _repository.GetReviewsByBookId(1, 0, 5);
 
         Assert.NotNull(reviews);
         Assert.Equal(2, reviews.Count);
@@ -56,7 +56,7 @@ public class ReviewRepositoryTests
 
         await _repository.AddReview(newReview);
 
-        var reviews = await _repository.GetReviewsByBookId(2);
+        var reviews = await _repository.GetReviewsByBookId(2, 0, 5);
         Assert.Contains(reviews, r => r.Content == "Amazing!");
         Assert.Contains(reviews, r => r.ReviewerName == "David");
         Assert.Contains(reviews, r => r.Rating == 4);

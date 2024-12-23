@@ -33,7 +33,7 @@
                 @foreach (var item in ViewBag.Books)
                 {
                     <tr style="cursor: pointer;"
-                        onclick="window.location='@Url.Action("Reviews", "Review", new { bookId = item.Id })'">
+                        onclick="window.location='@Url.Action("Books", "Book", new { bookId = item.Id })'">
                         <td class="text-dark">@item.Title</td>
                         <td class="text-muted">@item.Author</td>
                     </tr>

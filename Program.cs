@@ -3,6 +3,7 @@ using System.Text.Json;
 using exercise_db_connection.Data;
 using exercise_db_connection.Repositories;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
@@ -37,12 +38,26 @@ builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(3));
+    options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(3, TimeSpan.FromSeconds(3), null));
 });
 
-// Configure authentication using Microsoft Identity and Azure AD
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+// Add Authentication
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration.GetSection("Google")["ClientId"]!;
+        options.ClientSecret = builder.Configuration.GetSection("Google")["ClientSecret"]!;
+    })
+    .AddMicrosoftAccount(options =>
+    {
+        options.ClientId = builder.Configuration.GetSection("AzureAd")["ClientId"]!;
+        options.ClientSecret = builder.Configuration.GetSection("AzureAd")["ClientSecret"]!;
+    })
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd")); ;
 
 // Register application repositories for dependency injection
 builder.Services.AddTransient<BookRepository>();
@@ -67,8 +82,6 @@ app.UseStaticFiles();
 
 // Configure request routing
 app.UseRouting();
-
-// Enable authentication and authorization middleware
 app.UseAuthentication();
 app.UseAuthorization();
 

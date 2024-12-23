@@ -41,6 +41,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString, opt => opt.EnableRetryOnFailure(3, TimeSpan.FromSeconds(3), null));
 });
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 // Add Authentication
 builder.Services.AddAuthentication()
     .AddGoogle(options =>
